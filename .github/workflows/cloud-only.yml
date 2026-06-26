@@ -1,9 +1,9 @@
 name: cloud-only-guard
 on: 
   pull_request:
-    branches: [main, develop]
+    branches: [main, staging, development]
   push:
-    branches: [main, develop]
+    branches: [main, staging, development]
 
 permissions:
   contents: read
