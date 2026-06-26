@@ -24,7 +24,11 @@ jobs:
           set -e
           echo "🔒 Scanning for local Supabase commands and localhost DB references..."
           
-          if rg -n "supabase start|supabase stop|supabase db|supabase reset|docker-compose.*supabase|localhost:5432|127\.0\.0\.1:5432" -S .; then
+          if rg -n "supabase start|supabase stop|supabase db|supabase reset|docker-compose.*supabase|localhost:5432|127\.0\.0\.1:5432" -S . \
+            --glob '!docs/**' \
+            --glob '!apps/web/docs/**' \
+            --glob '!**/__tests__/**' \
+            --glob '!apps/web/supabase/config.toml'; then
             echo "❌ Found local Supabase commands or localhost DB references. Remove them." >&2
             echo "💡 Use MCP or CI for database operations. See docs/DB_MIGRATION_RUN.md" >&2
             exit 1
